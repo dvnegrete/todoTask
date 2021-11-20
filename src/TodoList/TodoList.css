@@ -1,0 +1,10 @@
+.TodoList {
+    padding: 0;
+    color: #ffc300;
+    border-radius: 20px;
+    width: 95%;
+}
+
+.TodoList--UL {
+    list-style: none;
+}
