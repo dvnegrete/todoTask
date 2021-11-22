@@ -1,32 +1,33 @@
 import React from "react";
+import { TodoContext } from "../TodoContext";
 import { TodoCounter } from "../TodoCounter";
 import { TodoSearch } from "../TodoSearch";
 import { CreateTodoButton } from "../CreateTodoButton";
 import { TodoList } from "../TodoList";
 import { TodoItem } from "../TodoItem";
+import { Modal } from "../modal";
 
-function AppUI ({
-    totalTodos,
-    completedTodos,
-    searchValue,
-    setSearchValue,
+
+function AppUI () {
+  const {
+    error,
+    loading,
     searchedTodos,
     completedElement,
     deletedElement,
-    }) {
-    return(
-        <React.Fragment>
-      <TodoCounter
-        total={totalTodos}
-        completed={completedTodos}
-      />
-      <TodoSearch
-      //aqui le pasamos a nuestro componente de busqueda los valores del estado de React
-        searchValue= {searchValue}
-        setSearchValue={setSearchValue}
-      />
-      
+    openModal,
+    setOpenModal              
+  } = React.useContext(TodoContext);
+  
+  return(
+    <React.Fragment>
+      <TodoCounter/>
+      <TodoSearch/>
       <TodoList>        
+        {error && <p>UPS! tuvimos un error.</p>}
+        {loading && <p>Espera por favor... estamos recopilando tu información</p>}
+        {(!loading && !searchedTodos.lenght) && <p>¡Crea tu primer TODO!</p>}
+
         {searchedTodos.map(todo => (
           <TodoItem 
           key ={todo.text}
@@ -37,7 +38,16 @@ function AppUI ({
           />
         ))}
       </TodoList>
-      <CreateTodoButton/>
+
+         {!!openModal && (
+            <Modal>
+            <p>Teletransportación</p>
+          </Modal>
+         )}
+
+      <CreateTodoButton
+      setOpenModal={setOpenModal}
+      />
       
     </React.Fragment>
     );
