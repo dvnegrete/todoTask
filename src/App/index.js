@@ -13,34 +13,43 @@ import { AppUI } from "./AppUI";
 //   { text: "Preparar CV", completed: true },
 // ];
 
-function App() {
-  const localStorageTodos = localStorage.getItem("TODOS_V1");
-  let parsedTodos;
-
-  if (!localStorageTodos) {
-    localStorage.setItem("TODOS_V1", JSON.stringify([]));
-    parsedTodos = [];
+function useLocalStorage (itemName, initialValue) {  
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+  
+  if (!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   }
   
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [item, setItem] = React.useState(parsedItem);
   
-  //aqui viene el manejo del estado de toda la aplicación
-  const [searchValue, setSearchValue] = React.useState("");
-  //para poder llamar a React.useState es necesario haber importado antes
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem)
+  }
 
-  // const completedTodos = todos.filter(todo => todo.completed === true)
+  return [
+    item, 
+    saveItem,
+  ];
+}
+
+function App() {
+  const [todos, saveTodos] = useLocalStorage("TODOS_V1", []);
+  const [searchValue, setSearchValue] = React.useState("");
+
   const completedTodos = todos.filter(todo => todo.completed).length;
-  //es falso que mi variable sea falsa. Doble falso es verdadero.
   const totalTodos = todos.length;
 
   let searchedTodos = [];
   
-  if(searchValue < 1) {
-    searchedTodos = todos
-  } else {    
-    //pasar a minusculas para hacer la comparación
+  if(!searchValue >= 1) {
+    searchedTodos = todos;
+  } else {        
     searchedTodos = todos.filter( todo => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
@@ -48,25 +57,17 @@ function App() {
     });
   }
 
-  const saveTodos = (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem("TODOS_V1", stringifiedTodos);
-    setTodos(newTodos)
-  }
-
   const completedElement = (text) => {    
     const todoIndex = todos.findIndex(todo => todo.text === text);    
     const newTodos = [...todos];        
-    newTodos[todoIndex].completed = true;
-    //aqui estoy mandando el nuevo valor del Todo Completado, hace Re-render
+    newTodos[todoIndex].completed = true;    
     saveTodos(newTodos);
   }
 
   const deletedElement = (text) => {    
     const todoIndex = todos.findIndex(todo => todo.text === text);    
-    const newTodos = [...todos];
-    //con splice elimino ese elemento      
-    newTodos.splice(todoIndex, 1);    
+    const newTodos = [...todos];    
+    newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
   }
 

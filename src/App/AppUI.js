@@ -1,9 +1,9 @@
 import React from "react";
-import { TodoCounter } from "../TodoCounter";
+import {TodoCounter} from "../TodoCounter";
 import { TodoSearch } from "../TodoSearch";
-import { CreateTodoButton } from "../CreateTodoButton";
 import { TodoList } from "../TodoList";
 import { TodoItem } from "../TodoItem";
+import { CreateTodoButton } from "../CreateTodoButton";
 
 function AppUI ({
     totalTodos,
@@ -15,13 +15,12 @@ function AppUI ({
     deletedElement,
     }) {
     return(
-        <React.Fragment>
+    <React.Fragment>
       <TodoCounter
         total={totalTodos}
         completed={completedTodos}
       />
-      <TodoSearch
-      //aqui le pasamos a nuestro componente de busqueda los valores del estado de React
+      <TodoSearch      
         searchValue= {searchValue}
         setSearchValue={setSearchValue}
       />
