@@ -2,9 +2,10 @@
     padding: 0;
     color: #ffc300;
     border-radius: 20px;
-    width: 95%;
+    width: 95%;    
 }
 
 .TodoList--UL {
     list-style: none;
+    padding: 0;
 }

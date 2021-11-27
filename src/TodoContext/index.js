@@ -3,8 +3,6 @@ import { useLocalStorage } from "./useLocalStorage";
 
 const TodoContext = React.createContext();
 
-
-
 function TodoProvider(props) {
     const {
         item: todos,
@@ -29,11 +27,26 @@ function TodoProvider(props) {
           return todoText.includes(searchText);
         });
       }
-    
-      const completedElement = (text) => {    
-        const todoIndex = todos.findIndex(todo => todo.text === text);    
+      
+      const addTodo = (text) => {    
         const newTodos = [...todos];        
-        newTodos[todoIndex].completed = true;    
+        newTodos.push({
+          completed: false,
+          text,
+        });
+        saveTodos(newTodos);
+      }
+
+      const completedElement = (text) => {    
+        const todoIndex = todos.findIndex(todo => todo.text === text);
+        const newTodos = [...todos];
+        //aqui falta cambiar para que se marque como true y/o false segun el estado
+        const changeTodo = newTodos[todoIndex];
+        if(!changeTodo.completed) {
+          newTodos[todoIndex].completed = true;
+        } else {
+          newTodos[todoIndex].completed = false;
+        }
         saveTodos(newTodos);
       }
     
@@ -53,6 +66,7 @@ function TodoProvider(props) {
             searchValue,
             setSearchValue,
             searchedTodos,
+            addTodo,
             completedElement,
             deletedElement,
             openModal, 

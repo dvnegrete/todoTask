@@ -1,6 +1,6 @@
 .TodoItem {
     background-color: #003566;
-    border-radius: 3px;
+    border-radius: 12px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@
   
   .TodoItem-p {
     margin: 24px 0 24px 24px;
-    width: calc(100% -120px);
+    width: calc(100% - 96px);
     font-size: 18px;
     line-height: 24px;
     font-weight: 400;

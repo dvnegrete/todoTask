@@ -1,0 +1,15 @@
+.IdModal {    
+    width: 280px;
+    height: 140px;    
+    background-color: #ffc300;
+    color: #000814;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.IdModal__hidden {
+    display: none;
+}

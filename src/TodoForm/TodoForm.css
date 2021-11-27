@@ -1,0 +1,40 @@
+.TodoForm {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000814;
+}
+
+.TodoForm--label {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.TodoForm--textArea{
+    width: 100%;
+    min-height: 50px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.TodoForm--textArea::placeholder {
+    color: #003566;
+    font-size: 17px;
+}
+
+.TodoForm__DIV {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px 0;
+}
+
+.TodoForm__DIV--button {
+    min-width: 80px;
+    background-color: #001d3d;
+    color: #ffd60a;
+    padding: 8px 12px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 25px;
+}
